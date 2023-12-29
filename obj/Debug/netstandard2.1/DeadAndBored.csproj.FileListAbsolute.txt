@@ -53,8 +53,6 @@ C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\Dea
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\DeadAndBored.dll
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\DeadAndBored.pdb
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\Assembly-CSharp.dll
-C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\LC_API.dll
-C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\LC_SoundTool.dll
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\SpectateEnemy.dll
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\Unity.Netcode.Runtime.dll
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\Unity.Animation.Rigging.dll

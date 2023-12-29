@@ -14,8 +14,6 @@
           "BepInEx.PluginInfoProps": "1.1.0",
           "UnityEngine.Modules": "2022.3.9",
           "Assembly-CSharp": "0.0.0.0",
-          "LC_API": "2.1.1.0",
-          "LC_SoundTool": "1.4.0.0",
           "SpectateEnemy": "2.0.0.0",
           "Unity.Netcode.Runtime": "0.0.0.0"
         },
@@ -362,22 +360,6 @@
           "Assembly-CSharp.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "LC_API/2.1.1.0": {
-        "runtime": {
-          "LC_API.dll": {
-            "assemblyVersion": "2.1.1.0",
-            "fileVersion": "2.1.1.0"
-          }
-        }
-      },
-      "LC_SoundTool/1.4.0.0": {
-        "runtime": {
-          "LC_SoundTool.dll": {
-            "assemblyVersion": "1.4.0.0",
-            "fileVersion": "1.4.0.0"
           }
         }
       },
@@ -944,16 +926,6 @@
       "hashPath": "unityengine.modules.2022.3.9.nupkg.sha512"
     },
     "Assembly-CSharp/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "LC_API/2.1.1.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "LC_SoundTool/1.4.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
