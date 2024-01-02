@@ -5,6 +5,7 @@ using UnityEngine;
 using SpectateEnemy;
 using GameNetcodeStuff;
 using HarmonyLib;
+using UnityEngine.SceneManagement;
 
 namespace DeadAndBored
 {
@@ -57,6 +58,11 @@ namespace DeadAndBored
             harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
             harmony.PatchAll();
             Logger.LogInfo("Dead And Bored loaded!");
+        }
+
+        private void Start()
+        {
+            SceneManager.activeSceneChanged += ResetSceneData;
         }
 
         private void Update()
@@ -159,6 +165,12 @@ namespace DeadAndBored
             audioInfo.enemyTransform = null;
             audioInfo.audioSource.transform.position = audioInfo.originalPosition;
             Debug.Log("Stopped audio correctly!");
+        }
+
+        private void ResetSceneData(Scene oldScene, Scene newScene)
+        {
+            playerToAudioDict.Clear();
+            Logger.LogInfo("Active scene change. Clearing dictionary");
         }
 
         private static void SetupAudioDictionary()
