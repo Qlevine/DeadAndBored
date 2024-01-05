@@ -30,6 +30,9 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\cache\BepInEx-BepInExPack\5.4.2100\BepInExPack\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="LC_API">
+      <HintPath>bin\Debug\netstandard2.1\LC_API.dll</HintPath>
+    </Reference>
     <Reference Include="SpectateEnemy">
       <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx\plugins\AllToasters-SpectateEnemies\SpectateEnemy.dll</HintPath>
     </Reference>

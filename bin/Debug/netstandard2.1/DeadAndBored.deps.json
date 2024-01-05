@@ -14,6 +14,7 @@
           "BepInEx.PluginInfoProps": "1.1.0",
           "UnityEngine.Modules": "2022.3.9",
           "Assembly-CSharp": "0.0.0.0",
+          "LC_API": "3.0.0.0",
           "SpectateEnemy": "2.0.0.0",
           "Unity.Netcode.Runtime": "0.0.0.0"
         },
@@ -363,6 +364,14 @@
           }
         }
       },
+      "LC_API/3.0.0.0": {
+        "runtime": {
+          "LC_API.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.2.4.0"
+          }
+        }
+      },
       "SpectateEnemy/2.0.0.0": {
         "runtime": {
           "SpectateEnemy.dll": {
@@ -488,6 +497,14 @@
           "ClientNetworkTransform.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.0.0": {
+        "runtime": {
+          "Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.2.0"
           }
         }
       },
@@ -632,14 +649,6 @@
           "Unity.Services.Core.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "Newtonsoft.Json/13.0.0.0": {
-        "runtime": {
-          "Newtonsoft.Json.dll": {
-            "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.2.0"
           }
         }
       },
@@ -930,6 +939,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "LC_API/3.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "SpectateEnemy/2.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -1006,6 +1020,11 @@
       "sha512": ""
     },
     "ClientNetworkTransform/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Newtonsoft.Json/13.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -1096,11 +1115,6 @@
       "sha512": ""
     },
     "Unity.Services.Core/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Newtonsoft.Json/13.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
