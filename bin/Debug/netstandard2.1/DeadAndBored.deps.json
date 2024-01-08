@@ -14,6 +14,7 @@
           "BepInEx.PluginInfoProps": "1.1.0",
           "UnityEngine.Modules": "2022.3.9",
           "Assembly-CSharp": "0.0.0.0",
+          "DissonanceVoip": "0.0.0.0",
           "LC_API": "3.0.0.0",
           "SpectateEnemy": "2.0.0.0",
           "Unity.Netcode.Runtime": "0.0.0.0"
@@ -364,6 +365,14 @@
           }
         }
       },
+      "DissonanceVoip/0.0.0.0": {
+        "runtime": {
+          "DissonanceVoip.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "LC_API/3.0.0.0": {
         "runtime": {
           "LC_API.dll": {
@@ -441,14 +450,6 @@
           "Facepunch.Steamworks.Win64.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "DissonanceVoip/0.0.0.0": {
-        "runtime": {
-          "DissonanceVoip.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -939,6 +940,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "DissonanceVoip/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "LC_API/3.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -985,11 +991,6 @@
       "sha512": ""
     },
     "Facepunch.Steamworks.Win64/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "DissonanceVoip/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
