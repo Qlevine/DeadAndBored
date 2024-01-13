@@ -1,10 +1,7 @@
-﻿using Dissonance;
-using GameNetcodeStuff;
+﻿using GameNetcodeStuff;
 using HarmonyLib;
-using DeadAndBored.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using UnityEngine;
 using System.Linq;
 using System.Collections;
@@ -12,7 +9,7 @@ using System.Collections;
 namespace DeadAndBored.Patches
 {
     [HarmonyPatch(typeof(StartOfRound), "UpdatePlayerVoiceEffects")]
-    class UpdatePlayerVoiceEffectsPatch
+    internal class UpdatePlayerVoiceEffectsPatch
     {
         private static bool updateStarted = false;
         private static Dictionary<PlayerControllerB, AudioConfig> configs = new Dictionary<PlayerControllerB, AudioConfig>();
@@ -22,12 +19,10 @@ namespace DeadAndBored.Patches
         [HarmonyBefore(new string[] { "BiggerLobby" })]
         private static void Prefix()
         {
-            Debug.Log("Prefix Update Player Voice Effects");
             if (configs == null) configs = new Dictionary<PlayerControllerB, AudioConfig>();
 
             if (!updateStarted)
             {
-                Debug.Log("Starting Update Coroutine");
                 HUDManager.Instance.StartCoroutine(UpdateNumerator());
                 updateStarted = true;
             }
@@ -53,7 +48,6 @@ namespace DeadAndBored.Patches
                     {
                         if (!configs.ContainsKey(playerControllerB))
                         {
-                            Debug.Log($"Adding player {playerControllerB.NetworkObjectId} to config");
                             configs.Add(playerControllerB,
                                 new AudioConfig(
                                         playerControllerB,
@@ -96,29 +90,28 @@ namespace DeadAndBored.Patches
 
                     if (configs[playerControllerB].EnemyT != null)
                     {
-                        Debug.Log($"Setting audio from player {playerControllerB.NetworkObjectId} to enemyT");
                         currentVoiceChatAudioSource.transform.position = configs[playerControllerB].EnemyT.position;
+
+                        currentVoiceChatAudioSource.panStereo = config.PanStereo;
+                        currentVoiceChatAudioSource.spatialBlend = config.SpatialBlend;
+
+                        AudioLowPassFilter lowPassFilter = currentVoiceChatAudioSource.GetComponent<AudioLowPassFilter>();
+                        AudioHighPassFilter highPassFilter = currentVoiceChatAudioSource.GetComponent<AudioHighPassFilter>();
+
+                        if (lowPassFilter != null) lowPassFilter.enabled = config.LowPassFilter;
+                        if (highPassFilter != null) highPassFilter.enabled = config.HighPassFilter;
+
+
+                        if (SoundManager.Instance != null)
+                        {
+                            SoundManager.Instance.playerVoicePitchTargets[(int)((IntPtr)playerControllerB.playerClientId)] = config.PlayerVoicePitchTargets;
+                            SoundManager.Instance.SetPlayerPitch(config.PlayerPitch, unchecked((int)playerControllerB.playerClientId));
+                        }
+
+                        playerControllerB.currentVoiceChatIngameSettings.set2D = config.Set2D;
+                        playerControllerB.voicePlayerState.Volume = config.Volume;
+                        playerControllerB.currentVoiceChatAudioSource.volume = config.Volume;
                     }
-
-
-                    currentVoiceChatAudioSource.panStereo = config.PanStereo;
-                    currentVoiceChatAudioSource.spatialBlend = config.SpatialBlend;
-
-                    AudioLowPassFilter lowPassFilter = currentVoiceChatAudioSource.GetComponent<AudioLowPassFilter>();
-                    AudioHighPassFilter highPassFilter = currentVoiceChatAudioSource.GetComponent<AudioHighPassFilter>();
-
-                    if (lowPassFilter != null) lowPassFilter.enabled = config.LowPassFilter;
-                    if (highPassFilter != null) highPassFilter.enabled = config.HighPassFilter;
-
-
-                    if (SoundManager.Instance != null)
-                    {
-                        SoundManager.Instance.playerVoicePitchTargets[(int)((IntPtr)playerControllerB.playerClientId)] = config.PlayerVoicePitchTargets;
-                        SoundManager.Instance.SetPlayerPitch(config.PlayerPitch, unchecked((int)playerControllerB.playerClientId));
-                    }
-
-                    playerControllerB.voicePlayerState.Volume = config.Volume;
-                    playerControllerB.currentVoiceChatAudioSource.volume = config.Volume;
                 }
                 else if (!playerControllerB.isPlayerDead)
                 {
@@ -159,7 +152,6 @@ namespace DeadAndBored.Patches
                 }
                 else if (player.Value.EnemyT != null && player.Value.AudioSourceT != null)
                 {
-                    Debug.Log($"Setting the position of audio to EnemyT for player {player.Key.NetworkObjectId}");
                     player.Value.AudioSourceT.position = player.Value.EnemyT.position;
                 }
             }

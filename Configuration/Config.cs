@@ -16,7 +16,7 @@ namespace DeadAndBored.Configuration
         {
             var filePath = Path.Combine(Paths.ConfigPath, CONFIG_FILE_NAME);
             config = new ConfigFile(filePath, true);
-            deadAndTalkingKeyConfig = config.Bind("Config", "Key To Talk", KeyCode.T, "Key press to talk as enemy.");
+            deadAndTalkingKeyConfig = config.Bind("Config", "Key To Talk", KeyCode.Y, "Key press to talk as enemy (when spectating enemy).");
         }
 
         public static KeyCode deadAndTalkingKey => deadAndTalkingKeyConfig.Value;
