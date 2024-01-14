@@ -173,6 +173,7 @@ namespace DeadAndBored
             }
             AudioConfig audioInfo = UpdatePlayerVoiceEffectsPatch.Configs[controller];
             audioInfo.EnemyT = null;
+            UpdatePlayerVoiceEffectsPatch.Configs[controller] = audioInfo;
         }
 
         private PlayerControllerB FindPlayerByNetworkID(string networkID)
