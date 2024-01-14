@@ -17,7 +17,9 @@
           "DissonanceVoip": "0.0.0.0",
           "LC_API": "3.0.0.0",
           "SpectateEnemy": "2.2.0.0",
-          "Unity.Netcode.Runtime": "0.0.0.0"
+          "Unity.Netcode.Runtime": "0.0.0.0",
+          "Unity.TextMeshPro": "0.0.0.0",
+          "UnityEngine.UI": "1.0.0.0"
         },
         "runtime": {
           "DeadAndBored.dll": {}
@@ -397,9 +399,9 @@
           }
         }
       },
-      "Unity.Animation.Rigging/0.0.0.0": {
+      "Unity.TextMeshPro/0.0.0.0": {
         "runtime": {
-          "Unity.Animation.Rigging.dll": {
+          "Unity.TextMeshPro.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
           }
@@ -413,9 +415,9 @@
           }
         }
       },
-      "Unity.TextMeshPro/0.0.0.0": {
+      "Unity.Animation.Rigging/0.0.0.0": {
         "runtime": {
-          "Unity.TextMeshPro.dll": {
+          "Unity.Animation.Rigging.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
           }
@@ -960,7 +962,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Unity.Animation.Rigging/0.0.0.0": {
+    "Unity.TextMeshPro/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -970,7 +972,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Unity.TextMeshPro/0.0.0.0": {
+    "Unity.Animation.Rigging/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
