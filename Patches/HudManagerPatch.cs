@@ -19,7 +19,7 @@ namespace DeadAndBored.Patches
                 }
                 else
                 {
-                    __instance.holdButtonToEndGameEarlyText.text += $"\n\n\n\nTalk As Enemy: [{Config.deadAndTalkingKey.ToString()}]";
+                    __instance.holdButtonToEndGameEarlyText.text += $"\n\nTalk As Enemy: [{Config.deadAndTalkingKey.ToString()}]";
                 }
             }
         }
