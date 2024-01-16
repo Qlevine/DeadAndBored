@@ -1,4 +1,4 @@
-# Dead And Bored v1.0.0
+# Dead And Bored
 ## by qlevine
 https://github.com/Qlevine/DeadAndBored.git
 

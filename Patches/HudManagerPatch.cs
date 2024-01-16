@@ -13,13 +13,16 @@ namespace DeadAndBored.Patches
             if (SpectateEnemy.SpectateEnemiesAPI.IsSpectatingEnemies)
             {
 
-                if (DeadAndBored.DeadAndBoredObject.Instance.isDeadAndTalking)
+                if (Config.enableTooltip)
                 {
-                    __instance.holdButtonToEndGameEarlyText.text += $"\n\n<color=#1c73ff>Talk As Enemy: [{Config.deadAndTalkingKey.ToString()}]</color>";
-                }
-                else
-                {
-                    __instance.holdButtonToEndGameEarlyText.text += $"\n\nTalk As Enemy: [{Config.deadAndTalkingKey.ToString()}]";
+                    if (DeadAndBoredObject.Instance.isDeadAndTalking)
+                    {
+                        __instance.holdButtonToEndGameEarlyText.text += $"\n\n<color=#1c73ff>Talk As Enemy: [{Config.deadAndTalkingKey.ToString()}]</color>";
+                    }
+                    else
+                    {
+                        __instance.holdButtonToEndGameEarlyText.text += $"\n\nTalk As Enemy: [{Config.deadAndTalkingKey.ToString()}]";
+                    }
                 }
             }
         }
