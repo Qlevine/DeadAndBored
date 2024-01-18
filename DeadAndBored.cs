@@ -131,8 +131,9 @@ namespace DeadAndBored
             Reset();
         }
 
-        private void Reset()
+        public void Reset()
         {
+            Debug.Log("CALLING RESET");
             isDeadAndTalking = false;
             UpdatePlayerVoiceEffectsPatch.Configs.Clear();
         }

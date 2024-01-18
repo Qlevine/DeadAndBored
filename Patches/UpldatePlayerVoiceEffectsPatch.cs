@@ -111,6 +111,15 @@ namespace DeadAndBored.Patches
                         playerControllerB.currentVoiceChatIngameSettings.set2D = config.Set2D;
                         playerControllerB.voicePlayerState.Volume = config.Volume;
                         playerControllerB.currentVoiceChatAudioSource.volume = config.Volume;
+
+
+                        //Makes it so that if you are dead, and someone else is talking as an enemy, you won't hear them
+                        if (GameNetworkManager.Instance.localPlayerController.isPlayerDead && !Configuration.Config.hearOtherDeadTeammates)
+                        {
+                            playerControllerB.currentVoiceChatAudioSource.spatialBlend = 1f;
+                            playerControllerB.currentVoiceChatIngameSettings.set2D = false;
+                            playerControllerB.voicePlayerState.Volume = 0f;
+                        }
                     }
                 }
                 else if (!playerControllerB.isPlayerDead)

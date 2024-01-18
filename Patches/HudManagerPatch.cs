@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using UnityEngine;
-using TMPro;
 using DeadAndBored.Configuration;
 
 namespace DeadAndBored.Patches
@@ -12,7 +10,6 @@ namespace DeadAndBored.Patches
         {
             if (SpectateEnemy.SpectateEnemiesAPI.IsSpectatingEnemies)
             {
-
                 if (Config.enableTooltip)
                 {
                     if (DeadAndBoredObject.Instance.isDeadAndTalking)

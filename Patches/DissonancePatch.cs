@@ -19,6 +19,7 @@ namespace DeadAndBored.Patches
         {
             foreach (AudioConfig conf in UpdatePlayerVoiceEffectsPatch.Configs.Values)
             {
+                if (conf.EnemyT == null) continue;
 
                 if ((__instance as VoicePlayback).transform.Equals(conf.AudioSourceT))
                 {

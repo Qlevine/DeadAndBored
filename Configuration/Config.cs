@@ -12,6 +12,7 @@ namespace DeadAndBored.Configuration
         private static ConfigFile config;
         private static ConfigEntry<KeyCode> deadAndTalkingKeyConfig;
         private static ConfigEntry<bool> enableTooltipConfig;
+        private static ConfigEntry<bool> hearOtherTeammates;
 
         public static void Init()
         {
@@ -19,9 +20,11 @@ namespace DeadAndBored.Configuration
             config = new ConfigFile(filePath, true);
             deadAndTalkingKeyConfig = config.Bind("Config", "Key To Talk", KeyCode.Y, "Key press to talk as enemy (when spectating enemy).");
             enableTooltipConfig = config.Bind("Config", "Enable Tooltip", true, "Enable the tooltip menu");
+            hearOtherTeammates = config.Bind("Config", "Hear Other Dead Teammates While They Are Talking As An Enemy", false, "With this set to False, you will not hear your other dead teammates when they are talking as an enemy. You will hear them again when they stop talking as an enemy. Note there is a delay so you may still hear/not hear them for a brief period of time.");
         }
 
         public static KeyCode deadAndTalkingKey => deadAndTalkingKeyConfig.Value;
         public static bool enableTooltip => enableTooltipConfig.Value;
+        public static bool hearOtherDeadTeammates => hearOtherTeammates.Value;
     }
 }
