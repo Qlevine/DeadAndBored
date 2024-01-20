@@ -15,7 +15,5 @@ namespace DeadAndBored
         /// Is the local player dead and talking as an enemy (while spectating an enemy)
         /// </summary>
         public static bool IsDeadAndTalking => DeadAndBored.DeadAndBoredObject.Instance.isDeadAndTalking;
-
-
     }
 }

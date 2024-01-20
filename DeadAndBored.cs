@@ -19,6 +19,15 @@ namespace DeadAndBored
 
     internal class DeadAndBoredObject : MonoBehaviour
     {
+
+        public static void DABLogging(string logString)
+        {
+            if (Config.enableDebugLogging)
+            {
+                Debug.Log($"DEAD AND BORED: {logString}");
+            }
+        }
+
         public static DeadAndBoredObject Instance = null;
 
         //Both of these are used to disable network talking if the user changes which enemy they are spectating
@@ -45,6 +54,7 @@ namespace DeadAndBored
             Init();
 
             SceneManager.activeSceneChanged += OnSceneChanged;
+            Debug.Log($"DeadAndBored Debugger: {Configuration.Config.enableDebugLogging}");
         }
 
         private void OnSceneChanged(Scene old, Scene newScene)
@@ -112,14 +122,16 @@ namespace DeadAndBored
         {
             isDeadAndTalking = true;
             LC_API.Networking.Network.Broadcast<BroadcastParameters>(deadAndTalkingUniqueName, param);
-            Debug.Log($"Begin talk for player: {param.controllerName}");
+            DABLogging($"Begin talk for player: {param.controllerName}");
+            StartOfRound.Instance.UpdatePlayerVoiceEffects();
         }
 
         private void StopTalk(ulong controllerName)
         {
             isDeadAndTalking = false;
             LC_API.Networking.Network.Broadcast<string>(deadAndStopTalkingUniqueName, controllerName.ToString());
-            Debug.Log($"Stop talk for player: {controllerName}");
+            DABLogging($"Stop talk for player: {controllerName}");
+            StartOfRound.Instance.UpdatePlayerVoiceEffects();
         }
 
         public void Init()
@@ -133,7 +145,7 @@ namespace DeadAndBored
 
         public void Reset()
         {
-            Debug.Log("CALLING RESET");
+            DABLogging("CALLING RESET");
             isDeadAndTalking = false;
             UpdatePlayerVoiceEffectsPatch.Configs.Clear();
         }
@@ -156,6 +168,7 @@ namespace DeadAndBored
                 }
                 UpdatePlayerVoiceEffectsPatch.Configs[talkingPlayer] = audioInfo;
             }
+            StartOfRound.Instance.UpdatePlayerVoiceEffects();
         }
 
         private void TheDeadStopTalk(string controllerID)
@@ -175,6 +188,7 @@ namespace DeadAndBored
             AudioConfig audioInfo = UpdatePlayerVoiceEffectsPatch.Configs[controller];
             audioInfo.EnemyT = null;
             UpdatePlayerVoiceEffectsPatch.Configs[controller] = audioInfo;
+            StartOfRound.Instance.UpdatePlayerVoiceEffects();
         }
 
         private PlayerControllerB FindPlayerByNetworkID(string networkID)

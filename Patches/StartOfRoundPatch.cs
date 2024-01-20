@@ -8,7 +8,7 @@ namespace DeadAndBored.Patches
     {
         private static void Postfix()
         {
-            Debug.Log($"PostFix Start: {DeadAndBoredObject.Instance != null}");
+            DeadAndBoredObject.DABLogging($"PostFix Start: {DeadAndBoredObject.Instance != null}");
             if(DeadAndBoredObject.Instance != null)
             {
                 DeadAndBoredObject.Instance.Reset();
@@ -22,7 +22,7 @@ namespace DeadAndBored.Patches
     {
         private static void Postfix()
         {
-            Debug.Log($"Postfix Leave: {DeadAndBoredObject.Instance != null}");
+            DeadAndBoredObject.DABLogging($"Postfix Leave: {DeadAndBoredObject.Instance != null}");
             if(DeadAndBoredObject.Instance != null)
             {
                 DeadAndBoredObject.Instance.Reset();

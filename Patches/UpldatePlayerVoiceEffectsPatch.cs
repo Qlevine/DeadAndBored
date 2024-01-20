@@ -83,6 +83,20 @@ namespace DeadAndBored.Patches
 
                 if (config == null) continue;
 
+                DeadAndBoredObject.DABLogging($"PlayerControllerB: {playerControllerB.NetworkObjectId}");
+                //Makes it so that if you are dead, and someone else is talking as an enemy, you won't hear them
+                if (GameNetworkManager.Instance.localPlayerController.isPlayerDead && 
+                    playerControllerB.isPlayerDead && 
+                    configs[playerControllerB].EnemyT != null &&
+                    !Configuration.Config.hearOtherDeadTeammates)
+                {
+                    playerControllerB.currentVoiceChatAudioSource.spatialBlend = 1f;
+                    playerControllerB.currentVoiceChatIngameSettings.set2D = false;
+                    playerControllerB.voicePlayerState.Volume = 0f;
+                    DeadAndBoredObject.DABLogging($"Stopping volume of Player {playerControllerB.NetworkObjectId}");
+                    continue;
+                }
+
                 if ((playerControllerB.isPlayerControlled || playerControllerB.isPlayerDead) && !(playerControllerB == GameNetworkManager.Instance.localPlayerController))
                 {
                     if (playerControllerB.currentVoiceChatAudioSource == null) continue;
@@ -111,15 +125,6 @@ namespace DeadAndBored.Patches
                         playerControllerB.currentVoiceChatIngameSettings.set2D = config.Set2D;
                         playerControllerB.voicePlayerState.Volume = config.Volume;
                         playerControllerB.currentVoiceChatAudioSource.volume = config.Volume;
-
-
-                        //Makes it so that if you are dead, and someone else is talking as an enemy, you won't hear them
-                        if (GameNetworkManager.Instance.localPlayerController.isPlayerDead && !Configuration.Config.hearOtherDeadTeammates)
-                        {
-                            playerControllerB.currentVoiceChatAudioSource.spatialBlend = 1f;
-                            playerControllerB.currentVoiceChatIngameSettings.set2D = false;
-                            playerControllerB.voicePlayerState.Volume = 0f;
-                        }
                     }
                 }
                 else if (!playerControllerB.isPlayerDead)
