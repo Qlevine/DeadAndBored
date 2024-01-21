@@ -10,6 +10,6 @@ namespace DeadAndBored
 
         public const string PLUGIN_NAME = "DeadAndBored";
 
-        public const string PLUGIN_VERSION = "1.0.7";
+        public const string PLUGIN_VERSION = "1.0.8";
     }
 }

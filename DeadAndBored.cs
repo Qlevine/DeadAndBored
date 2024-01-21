@@ -65,6 +65,10 @@ namespace DeadAndBored
 
         private void Update()
         {
+            if (UnityInput.Current.GetKeyDown(Configuration.Config.manuallyResetAudioData))
+            {
+                Reset();
+            }
             if (!SpectateEnemiesAPI.IsLoaded)
             {
                 return;
@@ -157,18 +161,28 @@ namespace DeadAndBored
         public void Reset()
         {
             DABLogging("CALLING RESET");
+            if (isDeadAndTalking && GameNetworkManager.Instance != null && GameNetworkManager.Instance.localPlayerController != null)
+            {
+                StopTalk(GameNetworkManager.Instance.localPlayerController.NetworkObjectId);
+            }
             isDeadAndTalking = false;
             UpdatePlayerVoiceEffectsPatch.Configs.Clear();
+            StartOfRound.Instance.UpdatePlayerVoiceEffects();
+            wasSpectatingEnemies = false;
+            wasPushToTalk = false;
+            oldSpectatingEnemy = null;
         }
 
         private void TheDeadTalk(BroadcastParameters param)
         {
             PlayerControllerB talkingPlayer = FindPlayerByNetworkID(param.controllerName);
+            DABLogging($"--------------- Talking Player recieved: {param.controllerName}");
             if (talkingPlayer == null)
             {
                 return;
             }
 
+            DABLogging($"UpdatePlayerVoiceEffects Contains Player: {UpdatePlayerVoiceEffectsPatch.Configs.ContainsKey(talkingPlayer)}");
             if (UpdatePlayerVoiceEffectsPatch.Configs.ContainsKey(talkingPlayer))
             {
                 AudioConfig audioInfo = UpdatePlayerVoiceEffectsPatch.Configs[talkingPlayer];
@@ -177,21 +191,27 @@ namespace DeadAndBored
                 {
                     audioInfo.EnemyT = obj.transform;
                 }
+                else
+                {
+                    DABLogging("Could not find enemy from name and position");
+                }
                 UpdatePlayerVoiceEffectsPatch.Configs[talkingPlayer] = audioInfo;
             }
+            DABLogging("-------------- Finishing The Dead Talk");
             StartOfRound.Instance.UpdatePlayerVoiceEffects();
         }
 
         private void TheDeadStopTalk(string controllerID)
         {
-
+            DABLogging("-------------- Start The Dead Stop Talk");
             PlayerControllerB controller = FindPlayerByNetworkID(controllerID);
+            DABLogging($"Found Player: {controller != null}");
             if (controller == null)
             {
                 return;
             }
 
-
+            DABLogging($"Config Contains Player: {UpdatePlayerVoiceEffectsPatch.Configs.ContainsKey(controller)}");
             if (!UpdatePlayerVoiceEffectsPatch.Configs.ContainsKey(controller))
             {
                 return;
@@ -200,6 +220,8 @@ namespace DeadAndBored
             audioInfo.EnemyT = null;
             UpdatePlayerVoiceEffectsPatch.Configs[controller] = audioInfo;
             StartOfRound.Instance.UpdatePlayerVoiceEffects();
+
+            DABLogging("-------------- Finish The Dead Stop Talk");
         }
 
         private PlayerControllerB FindPlayerByNetworkID(string networkID)

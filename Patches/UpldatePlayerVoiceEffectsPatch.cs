@@ -48,19 +48,23 @@ namespace DeadAndBored.Patches
                     {
                         if (!configs.ContainsKey(playerControllerB))
                         {
+                            DeadAndBoredObject.DABLogging($"------- -- - -- ADD Player to configs: {playerControllerB.NetworkObjectId}");
+
+                            DeadAndBoredObject.DABLogging("-------------------------------");
+
                             configs.Add(playerControllerB,
                                 new AudioConfig(
                                         playerControllerB,
-                                        currentVoiceChatAudioSource.GetComponent<AudioLowPassFilter>().enabled,
-                                        currentVoiceChatAudioSource.GetComponent<AudioHighPassFilter>().enabled,
+                                        true,
+                                        false,
                                         currentVoiceChatAudioSource.panStereo = 0f,
-                                        SoundManager.Instance.playerVoicePitchTargets[(int)((IntPtr)playerControllerB.playerClientId)],
-                                        GetPitch(playerControllerB),
-                                        currentVoiceChatAudioSource.spatialBlend,
-                                        playerControllerB.currentVoiceChatIngameSettings.set2D,
-                                        playerControllerB.voicePlayerState.Volume
+                                        1,
+                                        1,
+                                        1,
+                                        false,
+                                        1
                                     )
-                            );
+                            ) ;
                         }
                     }
                 }
@@ -97,11 +101,18 @@ namespace DeadAndBored.Patches
                     continue;
                 }
 
+                DeadAndBoredObject.DABLogging($"---------------------------------------------------------");
+                DeadAndBoredObject.DABLogging($"Player Controlled: {playerControllerB.isPlayerControlled}");
+                DeadAndBoredObject.DABLogging($"Is Player Dead: {playerControllerB.isPlayerDead}");
+                DeadAndBoredObject.DABLogging($"Local Player: {GameNetworkManager.Instance.localPlayerController}");
+                DeadAndBoredObject.DABLogging($"---------------------------------------------------------");
                 if ((playerControllerB.isPlayerControlled || playerControllerB.isPlayerDead) && !(playerControllerB == GameNetworkManager.Instance.localPlayerController))
                 {
+                    DeadAndBoredObject.DABLogging($"Current Voice Chat Audio Source: {playerControllerB.currentVoiceChatAudioSource != null}");
                     if (playerControllerB.currentVoiceChatAudioSource == null) continue;
                     AudioSource currentVoiceChatAudioSource = playerControllerB.currentVoiceChatAudioSource;
 
+                    DeadAndBoredObject.DABLogging($"Enemy Voice Chat Audio Source: {configs[playerControllerB].EnemyT != null}");
                     if (configs[playerControllerB].EnemyT != null)
                     {
                         currentVoiceChatAudioSource.transform.position = configs[playerControllerB].EnemyT.position;
