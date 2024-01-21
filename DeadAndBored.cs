@@ -36,6 +36,7 @@ namespace DeadAndBored
 
         //Used to determine if this online player is currently talking as an enemy
         public bool isDeadAndTalking = false;
+        private bool wasPushToTalk = false;
 
         //Used for sending and recieving network commands
         private static string deadAndTalkingUniqueName = "TheDeadTalk";
@@ -120,6 +121,11 @@ namespace DeadAndBored
 
         private void Talk(BroadcastParameters param)
         {
+            if (IngamePlayerSettings.Instance.settings.pushToTalk) //We want to force talking here so they don't have to press two buttons
+            {
+                IngamePlayerSettings.Instance.settings.pushToTalk = false;
+                wasPushToTalk = true;
+            }
             isDeadAndTalking = true;
             LC_API.Networking.Network.Broadcast<BroadcastParameters>(deadAndTalkingUniqueName, param);
             DABLogging($"Begin talk for player: {param.controllerName}");
@@ -128,6 +134,11 @@ namespace DeadAndBored
 
         private void StopTalk(ulong controllerName)
         {
+            if (wasPushToTalk) //We want to force talking here so they don't have to press two buttons
+            {
+                IngamePlayerSettings.Instance.settings.pushToTalk = true;
+                wasPushToTalk = false;
+            }
             isDeadAndTalking = false;
             LC_API.Networking.Network.Broadcast<string>(deadAndStopTalkingUniqueName, controllerName.ToString());
             DABLogging($"Stop talk for player: {controllerName}");
