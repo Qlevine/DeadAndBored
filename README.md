@@ -1,9 +1,10 @@
 # Dead And Bored
-## by qlevine
-https://github.com/Qlevine/DeadAndBored.git
+## by Quixler
+https://github.com/Qlevine/DeadAndBored/
+If you have any bugs, please create an issue in the attached github.
 
 ### Description
-Talk as enemies while you are dead! Troll your friends or trick them into thinking you are alive and safe!
+- Talk as enemies while you are dead! Troll your friends or trick them into thinking you are alive and safe!
 
 ### Installation
 - Install BepinEx.
@@ -17,7 +18,8 @@ Talk as enemies while you are dead! Troll your friends or trick them into thinki
 
 ### Keybind Defaults
 
-"Key To Talk" : Y
+- "Key To Talk" : Y
+- "Key to Reset Audio Data" : U --- Shouldn't need this but in case someone can't hear someone else, have the person who can't hear, press this (this includes if someone can't hear others talking as monsters)
 
 ### Special Thanks
 - Heavily reliant on https://github.com/EBro912/SpectateEnemies (SpectateEnemies)
