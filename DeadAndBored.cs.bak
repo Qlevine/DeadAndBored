@@ -160,7 +160,6 @@ namespace DeadAndBored
 
         public void Reset()
         {
-			DABLogging("CALLING RESET");
             if (isDeadAndTalking && GameNetworkManager.Instance != null && GameNetworkManager.Instance.localPlayerController != null)
             {
                 StopTalk(GameNetworkManager.Instance.localPlayerController.NetworkObjectId);
