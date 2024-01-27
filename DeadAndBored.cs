@@ -5,7 +5,7 @@ using GameNetcodeStuff;
 using UnityEngine.SceneManagement;
 using DeadAndBored.Patches;
 using DeadAndBored.Configuration;
-using System;
+using BepInEx.Bootstrap;
 
 namespace DeadAndBored
 {
@@ -27,6 +27,11 @@ namespace DeadAndBored
             {
                 Debug.Log($"DEAD AND BORED: {logString}");
             }
+        }
+
+        public static bool IsInputUtilsInstalled()
+        {
+            return Chainloader.PluginInfos.ContainsKey("com.rune580.LethalCompanyInputUtils");
         }
 
         public static DeadAndBoredObject Instance = null;
@@ -66,10 +71,20 @@ namespace DeadAndBored
 
         private void Update()
         {
-            if (UnityInput.Current.GetKeyDown(Configuration.Config.manuallyResetAudioData))
+            //Prioritize the input system. Otherwise use configs
+            if (IsInputUtilsInstalled())
+            {
+                if (Plugin.inputActions.ResetAudio.triggered)
+                {
+                    Reset();
+                }
+            }
+            else if (UnityInput.Current.GetKeyDown(Configuration.Config.manuallyResetAudioData))
             {
                 Reset();
             }
+
+
             if (!SpectateEnemiesAPI.IsLoaded)
             {
                 return;
@@ -102,7 +117,22 @@ namespace DeadAndBored
             {
                 if (SpectateEnemiesAPI.IsSpectatingEnemies)
                 {
-                    if (UnityInput.Current.GetKeyDown(Config.deadAndTalkingKey) && !isDeadAndTalking) //Begin talking as enemy
+                    //Prioritize the input system. Otherwise use configs
+                    bool shouldTalk = false;
+                    if (IsInputUtilsInstalled())
+                    {
+                        if (Plugin.inputActions.TalkKey.triggered && !isDeadAndTalking)
+                        {
+                            shouldTalk = true;
+                        }
+                    }
+                    else if(UnityInput.Current.GetKeyDown(Config.deadAndTalkingKey) && !isDeadAndTalking)
+                    {
+                        shouldTalk = true;
+                    }
+
+
+                    if (shouldTalk) //Begin talking as enemy
                     {
                         BroadcastParameters param = new BroadcastParameters();
                         param.controllerName = GameNetworkManager.Instance.localPlayerController.NetworkObjectId.ToString();
@@ -117,7 +147,21 @@ namespace DeadAndBored
                         }
                     }
                 }
-                if (UnityInput.Current.GetKeyUp(Config.deadAndTalkingKey) && isDeadAndTalking) //We let go of our proximity chat button so stop talk
+
+                //Prioritize the input system. Otherwise use configs
+                bool shouldStopTalk = false;
+                if (IsInputUtilsInstalled())
+                {
+                    if (Plugin.inputActions.TalkKey.IsPressed() == false && isDeadAndTalking)
+                    {
+                        shouldStopTalk = true;
+                    }
+                }
+                else if (UnityInput.Current.GetKeyDown(Config.deadAndTalkingKey) && isDeadAndTalking)
+                {
+                    shouldStopTalk = true;
+                }
+                if (shouldStopTalk) //We let go of our proximity chat button so stop talk
                 {
                     StopTalk(GameNetworkManager.Instance.localPlayerController.NetworkObjectId);
                 }
@@ -281,9 +325,17 @@ namespace DeadAndBored
         {
             foreach (PlayerControllerB playerControllerB in FindObjectsByType<PlayerControllerB>(FindObjectsSortMode.None))
             {
-                if (playerControllerB.NetworkObjectId == ulong.Parse(networkID))
+                ulong result;
+                if (ulong.TryParse(networkID, out result))
                 {
-                    return playerControllerB;
+                    if(playerControllerB.NetworkObjectId == result)
+                    {
+                        return playerControllerB;
+                    }
+                }
+                else
+                {
+                    DABLogging($"Invalid format: {networkID}");
                 }
             }
 

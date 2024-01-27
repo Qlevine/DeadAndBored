@@ -33,8 +33,14 @@
     <Reference Include="DissonanceVoip">
       <HintPath>..\DissonanceVoip.dll</HintPath>
     </Reference>
+    <Reference Include="LethalCompanyInputUtils">
+      <HintPath>..\..\..\Downloads\Rune580-LethalCompany_InputUtils-0.6.1\plugins\LethalCompanyInputUtils\LethalCompanyInputUtils.dll</HintPath>
+    </Reference>
     <Reference Include="SpectateEnemy">
       <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx\plugins\AllToasters-SpectateEnemies\SpectateEnemy.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>..\..\_UnityProjects\Test\Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Netcode.Runtime">
       <HintPath>E:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>

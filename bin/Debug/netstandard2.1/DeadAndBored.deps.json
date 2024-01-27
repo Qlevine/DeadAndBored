@@ -15,7 +15,9 @@
           "UnityEngine.Modules": "2022.3.9",
           "Assembly-CSharp": "0.0.0.0",
           "DissonanceVoip": "0.0.0.0",
+          "LethalCompanyInputUtils": "1.0.0.0",
           "SpectateEnemy": "2.2.0.0",
+          "Unity.InputSystem": "1.4.4.0",
           "Unity.Netcode.Runtime": "0.0.0.0",
           "Unity.TextMeshPro": "0.0.0.0",
           "UnityEngine.UI": "1.0.0.0"
@@ -374,11 +376,27 @@
           }
         }
       },
+      "LethalCompanyInputUtils/1.0.0.0": {
+        "runtime": {
+          "LethalCompanyInputUtils.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "SpectateEnemy/2.2.0.0": {
         "runtime": {
           "SpectateEnemy.dll": {
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "Unity.InputSystem/1.4.4.0": {
+        "runtime": {
+          "Unity.InputSystem.dll": {
+            "assemblyVersion": "1.4.4.0",
+            "fileVersion": "1.4.4.0"
           }
         }
       },
@@ -419,14 +437,6 @@
           "Facepunch.Steamworks.Win64.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Unity.InputSystem/1.7.0.0": {
-        "runtime": {
-          "Unity.InputSystem.dll": {
-            "assemblyVersion": "1.7.0.0",
-            "fileVersion": "1.7.0.0"
           }
         }
       },
@@ -491,6 +501,14 @@
           "ClientNetworkTransform.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.0.0": {
+        "runtime": {
+          "Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.2.0"
           }
         }
       },
@@ -635,14 +653,6 @@
           "Unity.Services.Core.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "Newtonsoft.Json/13.0.0.0": {
-        "runtime": {
-          "Newtonsoft.Json.dll": {
-            "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.2.0"
           }
         }
       },
@@ -938,7 +948,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "LethalCompanyInputUtils/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "SpectateEnemy/2.2.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Unity.InputSystem/1.4.4.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -964,11 +984,6 @@
       "sha512": ""
     },
     "Facepunch.Steamworks.Win64/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Unity.InputSystem/1.7.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -1009,6 +1024,11 @@
       "sha512": ""
     },
     "ClientNetworkTransform/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Newtonsoft.Json/13.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -1099,11 +1119,6 @@
       "sha512": ""
     },
     "Unity.Services.Core/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Newtonsoft.Json/13.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

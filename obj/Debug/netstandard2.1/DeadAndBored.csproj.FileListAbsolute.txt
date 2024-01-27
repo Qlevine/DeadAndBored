@@ -98,3 +98,6 @@ C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\Dea
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\DeadAndBored.csproj.CopyComplete
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\DeadAndBored.dll
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\DeadAndBored.pdb
+C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\LethalCompanyInputUtils.dll
+C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\LethalCompanyInputUtils.pdb
+C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\Unity.InputSystem.pdb
