@@ -5,6 +5,7 @@ using GameNetcodeStuff;
 using UnityEngine.SceneManagement;
 using DeadAndBored.Patches;
 using DeadAndBored.Configuration;
+using System;
 
 namespace DeadAndBored
 {
@@ -131,7 +132,9 @@ namespace DeadAndBored
                 wasPushToTalk = true;
             }
             isDeadAndTalking = true;
-            LC_API.Networking.Network.Broadcast<BroadcastParameters>(deadAndTalkingUniqueName, param);
+            string json = JsonUtility.ToJson(param);
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+            NetworkUtils.instance.SendToAll(deadAndTalkingUniqueName, bytes);
             DABLogging($"Begin talk for player: {param.controllerName}");
             StartOfRound.Instance.UpdatePlayerVoiceEffects();
         }
@@ -144,18 +147,37 @@ namespace DeadAndBored
                 wasPushToTalk = false;
             }
             isDeadAndTalking = false;
-            LC_API.Networking.Network.Broadcast<string>(deadAndStopTalkingUniqueName, controllerName.ToString());
+            string json = JsonUtility.ToJson(controllerName.ToString());
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+            NetworkUtils.instance.SendToAll(deadAndStopTalkingUniqueName, bytes);
             DABLogging($"Stop talk for player: {controllerName}");
             StartOfRound.Instance.UpdatePlayerVoiceEffects();
         }
 
         public void Init()
         {
-            System.Action<ulong, BroadcastParameters> talkAction = (sender, args) => { TheDeadTalk(args); };
-            System.Action<ulong, string> stopTalkAction = (sender, args) => { TheDeadStopTalk(args); };
-            LC_API.Networking.Network.RegisterMessage<BroadcastParameters>(deadAndTalkingUniqueName, false, talkAction);
-            LC_API.Networking.Network.RegisterMessage<string>(deadAndStopTalkingUniqueName, false, stopTalkAction);
+            NetworkUtils.Init();
+            NetworkUtils.instance.OnNetworkData = OnRecieveData;
             Reset();
+        }
+
+        private void OnRecieveData(string type, byte[] message)
+        {
+            string messageAsString = System.Text.Encoding.Default.GetString(message, 0, message.Length);
+            if (type == deadAndTalkingUniqueName)
+            {
+                BroadcastParameters broadcastParameters = JsonUtility.FromJson<BroadcastParameters>(messageAsString);
+                TheDeadTalk(broadcastParameters);
+            }
+            else if(type == deadAndStopTalkingUniqueName)
+            {
+                string stopTalkString = JsonUtility.FromJson<string>(messageAsString);
+                TheDeadStopTalk(stopTalkString);
+            }
+            else
+            {
+                DABLogging("Invalid message type");
+            }
         }
 
         public void Reset()

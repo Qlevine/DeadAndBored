@@ -98,4 +98,3 @@ C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\Dea
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\DeadAndBored.csproj.CopyComplete
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\DeadAndBored.dll
 C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\obj\Debug\netstandard2.1\DeadAndBored.pdb
-C:\Users\Quinn\Documents\LethalCompany\DeadAndBored\bin\Debug\netstandard2.1\LC_API.dll

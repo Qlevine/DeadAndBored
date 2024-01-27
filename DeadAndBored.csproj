@@ -33,9 +33,6 @@
     <Reference Include="DissonanceVoip">
       <HintPath>..\DissonanceVoip.dll</HintPath>
     </Reference>
-    <Reference Include="LC_API">
-      <HintPath>bin\Debug\netstandard2.1\LC_API.dll</HintPath>
-    </Reference>
     <Reference Include="SpectateEnemy">
       <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx\plugins\AllToasters-SpectateEnemies\SpectateEnemy.dll</HintPath>
     </Reference>
