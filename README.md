@@ -20,6 +20,7 @@ If you have any bugs, please create an issue in the attached github.
 
 - "Key To Talk" : Y
 - "Key to Reset Audio Data" : U --- Shouldn't need this but in case someone can't hear someone else, have the person who can't hear, press this (this includes if someone can't hear others talking as monsters)
+- These keys CAN ONLY BE CHANGED IN GAME via InputUtils. They cannot be changed from the config
 
 ### Special Thanks
 - Heavily reliant on https://github.com/EBro912/SpectateEnemies (SpectateEnemies)

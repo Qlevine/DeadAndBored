@@ -30,7 +30,7 @@ namespace DeadAndBored.Patches
 
         private static string GetButtonString(string path)
         {
-            string key = Config.deadAndTalkingKey.ToString();
+            string key = "";//Config.deadAndTalkingKey.ToString();
             if (DeadAndBoredObject.IsInputUtilsInstalled())
             {
                 key = InputControlPath.ToHumanReadableString(path, InputControlPath.HumanReadableStringOptions.OmitDevice);

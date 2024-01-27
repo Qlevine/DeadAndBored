@@ -80,10 +80,10 @@ namespace DeadAndBored
                     Reset();
                 }
             }
-            else if (UnityInput.Current.GetKeyDown(Configuration.Config.manuallyResetAudioData))
-            {
-                Reset();
-            }
+            //else if (UnityInput.Current.GetKeyDown(Configuration.Config.manuallyResetAudioData))
+            //{
+            //    Reset();
+            //}
 
 
             if (!SpectateEnemiesAPI.IsLoaded)
@@ -127,10 +127,10 @@ namespace DeadAndBored
                             shouldTalk = true;
                         }
                     }
-                    else if(UnityInput.Current.GetKeyDown(Config.deadAndTalkingKey) && !isDeadAndTalking)
-                    {
-                        shouldTalk = true;
-                    }
+                    //else if(UnityInput.Current.GetKeyDown(Config.deadAndTalkingKey) && !isDeadAndTalking)
+                    //{
+                    //    shouldTalk = true;
+                    //}
 
 
                     if (shouldTalk) //Begin talking as enemy
@@ -158,10 +158,10 @@ namespace DeadAndBored
                         shouldStopTalk = true;
                     }
                 }
-                else if (UnityInput.Current.GetKeyDown(Config.deadAndTalkingKey) && isDeadAndTalking)
-                {
-                    shouldStopTalk = true;
-                }
+                //else if (UnityInput.Current.GetKeyDown(Config.deadAndTalkingKey) && isDeadAndTalking)
+                //{
+                //    shouldStopTalk = true;
+                //}
                 if (shouldStopTalk) //We let go of our proximity chat button so stop talk
                 {
                     StopTalk(GameNetworkManager.Instance.localPlayerController.NetworkObjectId);
