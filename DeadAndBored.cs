@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using DeadAndBored.Patches;
 using DeadAndBored.Configuration;
 using BepInEx.Bootstrap;
+using Unity.Netcode;
 
 namespace DeadAndBored
 {
@@ -191,8 +192,7 @@ namespace DeadAndBored
                 wasPushToTalk = false;
             }
             isDeadAndTalking = false;
-            string json = JsonUtility.ToJson(controllerName.ToString());
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(controllerName.ToString());
             NetworkUtils.instance.SendToAll(deadAndStopTalkingUniqueName, bytes);
             DABLogging($"Stop talk for player: {controllerName}");
             StartOfRound.Instance.UpdatePlayerVoiceEffects();
@@ -208,6 +208,7 @@ namespace DeadAndBored
         private void OnRecieveData(string type, byte[] message)
         {
             string messageAsString = System.Text.Encoding.Default.GetString(message, 0, message.Length);
+            DABLogging($"Recieved Message: {messageAsString}");
             if (type == deadAndTalkingUniqueName)
             {
                 BroadcastParameters broadcastParameters = JsonUtility.FromJson<BroadcastParameters>(messageAsString);
@@ -215,8 +216,23 @@ namespace DeadAndBored
             }
             else if(type == deadAndStopTalkingUniqueName)
             {
-                string stopTalkString = JsonUtility.FromJson<string>(messageAsString);
-                TheDeadStopTalk(stopTalkString);
+                TheDeadStopTalk(messageAsString);
+            }
+            else if(type == NetworkUtils.HostRelayID)
+            {
+                DABLogging($"Host recieved relay message");
+                if (NetworkManager.Singleton.IsHost)
+                {
+                    NetworkUtils.RelayObject relayObject = JsonUtility.FromJson<NetworkUtils.RelayObject>(messageAsString);
+                    string tag = relayObject.tag;
+                    byte[] data = relayObject.data;
+
+                    NetworkUtils.instance.SendToAll(tag, data);
+                }
+                else
+                {
+                    DABLogging("Error: Sent host relay to non-host");
+                }
             }
             else
             {

@@ -3,6 +3,7 @@ using System.Text;
 using UnityEngine;
 using Unity.Netcode;
 using static Unity.Netcode.CustomMessagingManager;
+using GameNetcodeStuff;
 
 namespace DeadAndBored
 {
@@ -32,6 +33,7 @@ namespace DeadAndBored
 
 		public bool IsConnected => _connected;
 
+		public static string HostRelayID = "HOST_RELAY";
 
 		public static void Init()
         {
@@ -126,16 +128,58 @@ namespace DeadAndBored
 			}
 		}
 
+
+		public class RelayObject
+        {
+			public string tag;
+			public byte[] data;
+        }
+		public void RelayToHost(string tag, byte[] data)
+        {
+            if (!NetworkManager.Singleton.IsHost)
+            {
+				ulong hostID = 0uL;
+				foreach(PlayerControllerB player in StartOfRound.Instance.allPlayerScripts)
+                {
+                    if (player.IsHost)
+                    {
+						hostID = player.actualClientId;
+                    }
+                }
+
+				RelayObject relayObject = new RelayObject();
+				relayObject.tag = tag;
+				relayObject.data = data;
+				string json = JsonUtility.ToJson(relayObject);
+				byte[] relayByte = Encoding.UTF8.GetBytes(json);
+				DeadAndBoredObject.DABLogging($"Relay message from to host {hostID}");
+				SendTo(hostID, HostRelayID, relayByte);
+			}
+            else
+            {
+				DeadAndBoredObject.DABLogging("Error: Trying to relay when already host");
+            }
+
+		}
+
 		public void SendToAll(string tag, byte[] data)
 		{
 			if (!_initialized)
 			{
 				return;
 			}
-			foreach (var (num2, val2) in NetworkManager.Singleton.ConnectedClients)
-			{
-				SendTo(val2.ClientId, tag, data);
+
+            if (NetworkManager.Singleton.IsHost)
+            {
+				foreach (var (num2, val2) in NetworkManager.Singleton.ConnectedClients)
+				{
+					SendTo(val2.ClientId, tag, data);
+				}
 			}
+            else
+            {
+				RelayToHost(tag, data);
+            }
 		}
 
 		public void SendTo(ulong clientId, string tag, byte[] data)
@@ -144,27 +188,17 @@ namespace DeadAndBored
 			{
 				return;
 			}
-			NetworkMessage networkMessage = default(NetworkMessage);
+			NetworkMessage networkMessage = new NetworkMessage();
 			networkMessage.MessageTag = tag;
 			networkMessage.TargetId = clientId;
 			networkMessage.Data = data;
 			networkMessage.Checksum = Hash128.Compute<byte>(data);
-			NetworkMessage networkMessage2 = networkMessage;
-			string text = JsonUtility.ToJson((object)networkMessage2);
-			byte[] bytes = Encoding.UTF8.GetBytes(text);
-			int writeSize = FastBufferWriter.GetWriteSize(text, false);
-			FastBufferWriter val = new FastBufferWriter(writeSize + 1, Unity.Collections.Allocator.Temp, -1);
-			FastBufferWriter val2 = val;
-			try
-			{
-				val.WriteValueSafe(text, false);
-				Debug.Log((object)$"[Network Transport] Sending message to {clientId} {text}");
-				NetworkManager.Singleton.CustomMessagingManager.SendUnnamedMessage(clientId, val, (NetworkDelivery)3);
-			}
-			finally
-			{
-				val2.Dispose();
-			}
+			string text = JsonUtility.ToJson(networkMessage);
+			int writeSize = FastBufferWriter.GetWriteSize(text);
+			using FastBufferWriter writer = new FastBufferWriter(writeSize, Unity.Collections.Allocator.Temp);
+			DeadAndBoredObject.DABLogging($"Send To: Write Size{writeSize}");
+			writer.WriteValue(text);
+			NetworkManager.Singleton.CustomMessagingManager.SendUnnamedMessage(clientId, writer, NetworkDelivery.ReliableFragmentedSequenced);
 		}
 	}
 }
